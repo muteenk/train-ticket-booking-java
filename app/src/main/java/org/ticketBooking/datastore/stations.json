@@ -1,0 +1,26 @@
+[
+  {
+    "station_id": "1",
+    "station_name": "New Delhi"
+  },
+  {
+    "station_id": "2",
+    "station_name": "Katra"
+  },
+  {
+    "station_id": "3",
+    "station_name": "Ambala"
+  },
+  {
+    "station_id": "4",
+    "station_name": "Tamil Nadu"
+  },
+  {
+    "station_id": "5",
+    "station_name": "Bhopal"
+  },
+  {
+    "station_id": "6",
+    "station_name": "Goa"
+  }
+]
