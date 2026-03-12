@@ -3,9 +3,16 @@
  */
 package org.ticketBooking;
 
+import org.ticketBooking.repository.UserRepository;
+import org.ticketBooking.services.UserService;
+
 public class App {
 
     public static void main(String[] args){
-        System.out.println("First java project");
+        UserRepository userRepository = new UserRepository();
+        UserService userService = new UserService(userRepository);
+
+        userService.login("user.one@gmail.com", "12345678");
+        userService.printUser();
     }
 }
