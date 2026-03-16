@@ -3,17 +3,17 @@
  */
 package org.ticketBooking;
 
-import org.ticketBooking.repository.UserRepository;
-import org.ticketBooking.services.UserService;
+import org.ticketBooking.services.SystemServices;
 
 public class App {
 
     public static void main(String[] args){
-        UserRepository userRepository = new UserRepository();
-        UserService userService = new UserService(userRepository);
-
-        userService.printUser();
-        userService.signup("user.one", "user.one@gmail.com", "12345678");
-        userService.printUser();
+        SystemServices systemServices = new SystemServices();
+        boolean isInterrupted = false;
+        while(!isInterrupted){
+            systemServices.printMenu();
+            isInterrupted = systemServices.serve();
+        }
+        System.out.println("\nTHANKS\n");
     }
 }

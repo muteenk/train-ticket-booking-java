@@ -54,15 +54,11 @@ public class UserService {
         System.out.println("Login Successful.");
     }
 
-    public void printUser() {
-        if (this.userSession == null)
-            System.out.println("User not logged in !");
-        else {
-            User user = this.userSession;
-            System.out.printf(
-                    "\nuser id: %s\nusername: %s\nemail: %s\n",
-                    user.getUserId(), user.getUsername(), user.getEmail()
-            );
-        }
+    public boolean isAuthenticated(){
+        return this.userSession != null;
+    }
+
+    public Optional<User> getAuthenticatedUser() {
+        return Optional.of(this.userSession);
     }
 }
