@@ -1,9 +1,14 @@
 [
   {
-    "user_id":  "1",
-    "fullname": "User 1",
-    "username": "user.one",
-    "email": "user.one@gmail.com",
-    "password": "12345678"
+    "username":"user.one",
+    "email":"user.one@gmail.com",
+    "password":"12345678",
+    "user_id":"1"
+  },
+  {
+    "username":"user.two",
+    "email":"user.two@gmail.com",
+    "password":"12345678",
+    "user_id":"randomString"
   }
 ]

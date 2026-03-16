@@ -9,20 +9,31 @@ import org.ticketBooking.repository.UserRepository;
 
 public class UserService {
     UserRepository userRepository;
-    private Optional<User> userSession;
+    private Optional<User> userSession = Optional.empty();
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public void signup(
-        String fullname,
         String username,
         String email,
         String password
     ){
-
-
+        Optional<User> userOptional = this.userRepository.getUserByEmailOrUsername(email, username);
+        if (userOptional.isPresent()) {
+            System.out.printf("\nUser with username %s or email %s already exists\n", username, email);
+            return;
+        }
+        User newUser = new User();
+        newUser.create(username, email, password);
+        boolean isSaved = this.userRepository.saveUser(newUser);
+        if (!isSaved) {
+            System.out.println("Error while saving user !");
+            return;
+        }
+        this.userSession = Optional.of(newUser);
+        System.out.println("Signup Successful.");
     }
 
     public void login(
@@ -31,7 +42,7 @@ public class UserService {
     ){
         Optional<User> userOptional = this.userRepository.getUserByEmail(email);
         if (userOptional.isEmpty()){
-            System.out.printf("No user found with email %s !!\n", email);
+            System.out.printf("\nNo user found with email %s !!\n", email);
             return;
         }
         User user = userOptional.get();
@@ -49,8 +60,8 @@ public class UserService {
         else {
             User user = userSession.get();
             System.out.printf(
-                    "\nuser id: %s\nfullname: %s\nusername: %s\nemail: %s\n",
-                    user.getUserId(), user.getFullname(), user.getUsername(), user.getEmail()
+                    "\nuser id: %s\nusername: %s\nemail: %s\n",
+                    user.getUserId(), user.getUsername(), user.getEmail()
             );
         }
     }

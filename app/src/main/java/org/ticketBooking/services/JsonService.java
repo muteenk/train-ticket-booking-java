@@ -8,21 +8,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class JsonService<T> {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private final Class<T> type;
-    private final InputStream file;
-    // private String filePath;
+    private final File file;
 
     public JsonService(String filePath, Class<T> type) {
-        this.file = getClass()
-                .getClassLoader()
-                .getResourceAsStream("datastore/users.json");;
+        this.file = new File(filePath);;
         this.type = type;
-        // this.filePath = filePath;
     }
 
     public List<T> getData() throws IOException {
@@ -33,5 +28,9 @@ public class JsonService<T> {
                 this.file,
                 listType
         );
+    }
+
+    public void saveData(List<T> entity) throws IOException {
+        OBJECT_MAPPER.writeValue(this.file, entity);
     }
 }
