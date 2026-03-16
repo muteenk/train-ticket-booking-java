@@ -1,7 +1,12 @@
 package org.ticketBooking.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+//import lombok.Setter;
+import java.util.UUID;
+import org.mindrot.jbcrypt.BCrypt;
 
+@Getter
 public class User {
     @JsonProperty("user_id")
     private String userId;
@@ -9,14 +14,8 @@ public class User {
     private String email;
     private String password;
 
-
-    public String getUserId() { return this.userId; }
-    public String getUsername() { return this.username; }
-    public String getEmail() {return this.email;}
-    public String getPassword() { return this.password; }
-
     public boolean verifyPassword(String password) {
-        return this.password.equals(password);
+        return BCrypt.checkpw(password, this.password);
     }
 
     public void create(
@@ -29,10 +28,10 @@ public class User {
             && this.email == null
             && this.password == null
         ){
-            this.userId = "randomString";
+            this.userId = UUID.randomUUID().toString();
             this.username = username;
             this.email = email;
-            this.password = password;
+            this.password = BCrypt.hashpw(password, BCrypt.gensalt(10));
         }
     }
 

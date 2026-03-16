@@ -13,7 +13,7 @@ public class App {
         UserService userService = new UserService(userRepository);
 
         userService.printUser();
-        userService.signup("user.two", "user.two@gmail.com", "12345678");
+        userService.signup("user.one", "user.one@gmail.com", "12345678");
         userService.printUser();
     }
 }

@@ -1,14 +1,1 @@
-[
-  {
-    "username":"user.one",
-    "email":"user.one@gmail.com",
-    "password":"12345678",
-    "user_id":"1"
-  },
-  {
-    "username":"user.two",
-    "email":"user.two@gmail.com",
-    "password":"12345678",
-    "user_id":"randomString"
-  }
-]
+[{"username":"user.one","email":"user.one@gmail.com","password":"$2a$10$/YHZl2Px1Jr3WS8KG.jhEO6P01c4TAVV8ZgTAbbk3lLLMEWZ.qG9K","user_id":"138afb32-ac23-487b-b97c-a7a4c069b564"}]

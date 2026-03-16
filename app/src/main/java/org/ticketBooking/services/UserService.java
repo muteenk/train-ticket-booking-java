@@ -9,7 +9,7 @@ import org.ticketBooking.repository.UserRepository;
 
 public class UserService {
     UserRepository userRepository;
-    private Optional<User> userSession = Optional.empty();
+    private User userSession;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -32,7 +32,7 @@ public class UserService {
             System.out.println("Error while saving user !");
             return;
         }
-        this.userSession = Optional.of(newUser);
+        this.userSession = newUser;
         System.out.println("Signup Successful.");
     }
 
@@ -50,15 +50,15 @@ public class UserService {
             System.out.println("Invalid Password !!");
             return;
         }
-        this.userSession = Optional.of(user);
+        this.userSession = user;
         System.out.println("Login Successful.");
     }
 
     public void printUser() {
-        if (this.userSession.isEmpty())
+        if (this.userSession == null)
             System.out.println("User not logged in !");
         else {
-            User user = userSession.get();
+            User user = this.userSession;
             System.out.printf(
                     "\nuser id: %s\nusername: %s\nemail: %s\n",
                     user.getUserId(), user.getUsername(), user.getEmail()
