@@ -1,13 +1,12 @@
 package org.ticketBooking.services;
 
-import org.ticketBooking.repository.UserRepository;
+import org.ticketBooking.controllers.UserController;
 
 import java.util.Scanner;
 
 public class SystemServices {
-    private final UserRepository userRepository = new UserRepository();
-    private final UserService userService = new UserService(userRepository);
-    private final Scanner input = new Scanner(System.in);
+    private static final Scanner input = new Scanner(System.in);
+    private final UserController userController = new UserController(input);
 
     private void header(){
         System.out.println("\n--------------------------------");
@@ -35,7 +34,7 @@ public class SystemServices {
         this.header();
 
         System.out.println("[0] EXIT");
-        if (this.userService.isAuthenticated()){
+        if (this.userController.isUserAuthenticated()){
             this.mainMenu();
         } else {
             this.authMenu();
@@ -43,7 +42,9 @@ public class SystemServices {
     }
 
     private void authRouter(String inp){
-
+        switch (inp) {
+            case "1" -> userController.signupController();
+        }
     }
 
     private void userRouter(String inp){
@@ -54,7 +55,7 @@ public class SystemServices {
         System.out.print("Choose >>> ");
         String inp = input.next();
         if (inp.equals("0")) return true;
-        if (this.userService.isAuthenticated()) this.userRouter(inp);
+        if (this.userController.isUserAuthenticated()) this.userRouter(inp);
         else this.authRouter(inp);
         return false;
     }
