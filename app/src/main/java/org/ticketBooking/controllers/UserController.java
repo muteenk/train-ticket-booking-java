@@ -2,8 +2,10 @@ package org.ticketBooking.controllers;
 
 import org.ticketBooking.repository.UserRepository;
 import org.ticketBooking.services.UserService;
-import org.ticketBooking.services.ValidatorService;
+import org.ticketBooking.utils.InputUtil;
+import org.ticketBooking.utils.ValidatorUtil;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class UserController {
@@ -16,29 +18,26 @@ public class UserController {
     }
 
     public void signupController(){
-        String[] userInputs = {"", "", ""};
+        HashMap<String, String> inputs = new HashMap<>();
 
-        while(userInputs[0].length() < 2) {
-            System.out.println("\n\n Username (Min. 2 Characters required): ");
-            userInputs[0] = this.input.nextLine();
-        }
+        inputs.put("username", InputUtil.validatedStrInput(
+                "Username (Min. 2 Characters required)",
+                (input) -> input.length() >= 2
+        ));
+        inputs.put("email", InputUtil.validatedSingleStrInput(
+                "Email Address",
+                ValidatorUtil::emailValidator
+        ));
+        inputs.put("password", InputUtil.validatedStrInput(
+                "Password (Min. 8 Characters)",
+                (input) -> input.length() >= 8
+        ));
 
-        boolean validEmail = false;
-        while(!validEmail){
-            System.out.println("\n\n Email Address : ");
-            userInputs[1] = this.input.next();
-            this.input.nextLine();
-
-            validEmail = ValidatorService.emailValidator(userInputs[1]);
-            if (!validEmail) System.out.println("\nInvalid email address\n");
-        }
-
-        while(userInputs[2].length() < 8){
-            System.out.println("\n\n Password (Min. 8 Characters): ");
-            userInputs[2] = this.input.nextLine();
-        }
-
-        userService.signup(userInputs[0], userInputs[1], userInputs[2]);
+        userService.signup(
+                inputs.get("username"),
+                inputs.get("email"),
+                inputs.get("password")
+        );
     }
 
     public void loginController(){
