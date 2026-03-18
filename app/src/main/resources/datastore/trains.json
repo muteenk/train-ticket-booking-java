@@ -1,23 +1,32 @@
 [
   {
     "train_id": "1",
-    "train_no": "12345",
-    "train_name": "Shri Shakti",
-    "seats": {
-      "1": "-",
-      "2": "-",
-      "3": "-",
-      "4": "-",
-      "5": "-",
-      "6": "-",
-      "7": "-",
-      "8": "-",
-      "9": "-",
-      "10": "-",
-      "11": "-",
-      "12": "-",
-      "13": "-",
-      "14": "-"
-    }
+    "train_no": "012345",
+    "train_name": "Shri Shakti"
+  },
+  {
+    "train_id": "2",
+    "train_no": "678910",
+    "train_name": "Vande Bharat"
+  },
+  {
+    "train_id": "3",
+    "train_no": "111213",
+    "train_name": "Uttar Sampan Kranti"
+  },
+  {
+    "train_id": "4",
+    "train_no": "141516",
+    "train_name": "Ambala Cantt"
+  },
+  {
+    "train_id": "5",
+    "train_no": "171819",
+    "train_name": "Jammu Tawi"
+  },
+  {
+    "train_id": "6",
+    "train_no": "171819",
+    "train_name": "Tamil Nadu Express"
   }
 ]

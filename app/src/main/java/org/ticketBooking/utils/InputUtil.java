@@ -49,8 +49,4 @@ public class InputUtil {
         }
         return inputState;
     }
-
-//    public static String singleInput(){
-//
-//    }
 }

@@ -36,7 +36,6 @@ public class UserController {
 
     public void loginController(){
         HashMap<String, String> inputs = new HashMap<>();
-
         inputs.put("email", InputUtil.strInput("Email Address"));
         inputs.put("password", InputUtil.strInput("Password"));
 
