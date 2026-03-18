@@ -1,12 +1,22 @@
 package org.ticketBooking.services;
 
+import org.ticketBooking.controllers.JourneyController;
 import org.ticketBooking.controllers.UserController;
 
 import java.util.Scanner;
 
 public class SystemService {
     private static final Scanner input = new Scanner(System.in);
-    private final UserController userController = new UserController();
+    private final UserController userController;
+    private final JourneyController journeyController;
+
+    public SystemService(
+            UserController userController,
+            JourneyController journeyController
+    ){
+        this.userController = userController;
+        this.journeyController = journeyController;
+    }
 
     private void header(){
         System.out.println("\n--------------------------------");
@@ -49,7 +59,10 @@ public class SystemService {
     }
 
     private void userRouter(String inp){
-
+        switch (inp){
+            case "1" -> userController.profileController();
+            case "2" -> journeyController.listJourneys();
+        }
     }
 
     public boolean serve(){

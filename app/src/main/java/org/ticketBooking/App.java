@@ -3,17 +3,56 @@
  */
 package org.ticketBooking;
 
+import org.jspecify.annotations.NonNull;
+import org.ticketBooking.controllers.JourneyController;
+import org.ticketBooking.controllers.UserController;
+import org.ticketBooking.entities.Journey;
+import org.ticketBooking.entities.User;
+import org.ticketBooking.repository.JourneyRepository;
+import org.ticketBooking.repository.UserRepository;
+import org.ticketBooking.services.JourneyService;
+import org.ticketBooking.services.JsonService;
 import org.ticketBooking.services.SystemService;
+import org.ticketBooking.services.UserService;
 
 public class App {
+    // JSON File Paths
+    private static final String USERS_PATH = "app/src/main/resources/datastore/users.json";
+    private static final String JOURNEYS_PATH = "app/src/main/resources/datastore/journeys.json";
 
     public static void main(String[] args){
-        SystemService systemServices = new SystemService();
+        // JSON Services (Fake DAO)
+        JsonService<User> userJsonService = new JsonService<>(USERS_PATH, User.class);
+        JsonService<Journey> journeyJsonService = new JsonService<>(JOURNEYS_PATH, Journey.class);
+
+        SystemService systemServices = getSystemService(userJsonService, journeyJsonService);
         boolean isInterrupted = false;
         while(!isInterrupted){
             systemServices.printMenu();
             isInterrupted = systemServices.serve();
         }
         System.out.println("\nTHANKS\n");
+    }
+
+    private static @NonNull SystemService getSystemService(
+            JsonService<User> userJsonService,
+            JsonService<Journey> journeyJsonService
+    ) {
+        // Repositories
+        UserRepository userRepository = new UserRepository(userJsonService);
+        JourneyRepository journeyRepository = new JourneyRepository(journeyJsonService);
+
+        // Services
+        UserService userService = new UserService(userRepository);
+        JourneyService journeyService = new JourneyService(journeyRepository);
+
+        // Controllers
+        UserController userController = new UserController(userService);
+        JourneyController journeyController = new JourneyController(journeyService);
+
+        return new SystemService(
+                userController,
+                journeyController
+        );
     }
 }

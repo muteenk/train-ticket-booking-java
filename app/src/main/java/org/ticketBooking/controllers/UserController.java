@@ -1,15 +1,19 @@
 package org.ticketBooking.controllers;
 
-import org.ticketBooking.repository.UserRepository;
+import org.ticketBooking.entities.User;
 import org.ticketBooking.services.UserService;
 import org.ticketBooking.utils.InputUtil;
 import org.ticketBooking.utils.ValidatorUtil;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 public class UserController {
-    private final UserRepository userRepository = new UserRepository();
-    private final UserService userService = new UserService(userRepository);
+    private final UserService userService;
+
+    public UserController(UserService userService){
+        this.userService = userService;
+    }
 
     public void signupController(){
         HashMap<String, String> inputs = new HashMap<>();
@@ -40,6 +44,17 @@ public class UserController {
         inputs.put("password", InputUtil.strInput("Password"));
 
         userService.login(inputs.get("email"), inputs.get("password"));
+    }
+
+    public void profileController(){
+        Optional<User> userOptional = userService.getAuthenticatedUser();
+        if (userOptional.isEmpty()){
+            System.out.println("\n\nUSER NOT LOGGED IN!\n\n");
+            return;
+        }
+        User user = userOptional.get();
+        System.out.println("\nPROFILE DETAILS: \n");
+        System.out.printf("- Username: %s\n- Email Address: %s\n\n", user.getUsername(), user.getEmail());
     }
 
     public boolean isUserAuthenticated(){

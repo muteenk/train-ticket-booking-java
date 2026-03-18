@@ -7,8 +7,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserRepository {
-    private static final String USERS_PATH = "app/src/main/resources/datastore/users.json";
-    private final JsonService<User> jsonService = new JsonService<>(USERS_PATH, User.class);
+    private final JsonService<User> jsonService;
+
+    public UserRepository(
+            JsonService<User> jsonService
+    ){
+        this.jsonService = jsonService;
+    }
 
     public Optional<User> getUserByEmail(String email) {
         try {
