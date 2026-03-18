@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class SystemService {
     private static final Scanner input = new Scanner(System.in);
-    private final UserController userController = new UserController(input);
+    private final UserController userController = new UserController();
 
     private void header(){
         System.out.println("\n--------------------------------");

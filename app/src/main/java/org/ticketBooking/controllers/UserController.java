@@ -6,16 +6,10 @@ import org.ticketBooking.utils.InputUtil;
 import org.ticketBooking.utils.ValidatorUtil;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class UserController {
     private final UserRepository userRepository = new UserRepository();
     private final UserService userService = new UserService(userRepository);
-    private final Scanner input;
-
-    public UserController(Scanner input){
-        this.input = input;
-    }
 
     public void signupController(){
         HashMap<String, String> inputs = new HashMap<>();
@@ -41,15 +35,12 @@ public class UserController {
     }
 
     public void loginController(){
-        String[] userInputs = {"", ""};
+        HashMap<String, String> inputs = new HashMap<>();
 
-        System.out.println("\n\n Email Address : ");
-        userInputs[0] = this.input.next();
+        inputs.put("email", InputUtil.strInput("Email Address"));
+        inputs.put("password", InputUtil.strInput("Password"));
 
-        System.out.println("\n\n Password (Min. 8 Characters): ");
-        userInputs[1] = this.input.nextLine();
-
-        userService.login(userInputs[0], userInputs[1]);
+        userService.login(inputs.get("email"), inputs.get("password"));
     }
 
     public boolean isUserAuthenticated(){
