@@ -4,7 +4,7 @@ import org.ticketBooking.controllers.UserController;
 
 import java.util.Scanner;
 
-public class SystemServices {
+public class SystemService {
     private static final Scanner input = new Scanner(System.in);
     private final UserController userController = new UserController(input);
 
@@ -44,6 +44,7 @@ public class SystemServices {
     private void authRouter(String inp){
         switch (inp) {
             case "1" -> userController.signupController();
+            case "2" -> userController.loginController();
         }
     }
 
@@ -54,6 +55,8 @@ public class SystemServices {
     public boolean serve(){
         System.out.print("Choose >>> ");
         String inp = input.next();
+        input.nextLine();
+
         if (inp.equals("0")) return true;
         if (this.userController.isUserAuthenticated()) this.userRouter(inp);
         else this.authRouter(inp);

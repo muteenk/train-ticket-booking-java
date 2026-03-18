@@ -3,12 +3,12 @@
  */
 package org.ticketBooking;
 
-import org.ticketBooking.services.SystemServices;
+import org.ticketBooking.services.SystemService;
 
 public class App {
 
     public static void main(String[] args){
-        SystemServices systemServices = new SystemServices();
+        SystemService systemServices = new SystemService();
         boolean isInterrupted = false;
         while(!isInterrupted){
             systemServices.printMenu();
